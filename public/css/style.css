@@ -1,3 +1,15 @@
+body{
+    font-family: "Plus Jakarta Sans", sans-serif;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container{
+    flex: 1;
+}
+
+
+
 /* navbar */
 
 .navbar{
@@ -6,7 +18,7 @@
 
 }
 
-fa-compass{
+.fa-compass{
     color: #fe424d;
     font-size: 2rem;
 
@@ -25,7 +37,7 @@ fa-compass{
 
 }
 
-.f-info-link a:hover{
+.f-info-links a:hover{
     text-decoration: underline;
 }
 
@@ -42,13 +54,32 @@ fa-compass{
     margin-right: 1rem;
 }
 
-.f-info{
-    /* margin-bottom: 0px; */
+.f-info {
     height: 6rem;
     text-align: center;
     background-color: #ebebeb;
-    /* display:flex; */
+    /* display: flex; add this back */
     flex-wrap: wrap;
-    justify-content: center; 
-     align-items: space-evenly;
+    justify-content: space-evenly; 
+    align-items: center;
+}
+
+
+/* card */
+.listing-link{
+    text-decoration: none;
+}
+
+.card-img-overlay{
+    opacity: 0;
+}
+.card-img-overlay:hover{
+    opacity: 0.2;
+    background-color: white;
+}
+/* new page */
+
+.add-btn{
+    background-color: #fe424d !important;
+    border: none !important;
 }

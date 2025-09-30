@@ -8,6 +8,7 @@ const path = require("path");
 const ejsmate = require("ejs-mate");
 const { prototype } = require("events");
 const wrapAsync = require("./utils/wrapAsync.js");
+const ExpressError = require("./utils/ExpressError.js");
 
 
 main()
@@ -60,6 +61,9 @@ app.get("/listings/new", (req, res) => {
 app.post(
   "/listings",
   wrapAsync(async (req, res, next) => {
+    if(!req.body.listing){
+      throw new ExpressError(400,"send valid data for listing ")
+    }
     const newlisting = new Listing(req.body.Listing);
     await newlisting.save();
     res.redirect("/listings");
@@ -67,37 +71,48 @@ app.post(
 );
 
 //edit route
-app.get("/listings/:id/edit", async (req, res) => {
+app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);
   res.render("listings/edit.ejs", { listing });
-});
+}));
 
 // update route
-app.put("/listings/:id", async (req, res) => {
+app.put("/listings/:id", wrapAsync(async (req, res) => {
   let { id } = req.params;
   await Listing.findByIdAndUpdate(id, { ...req.body.Listing });
   res.redirect(`/listings/${id}`);
-});
+}));
 
 // show route
-app.get("/listings/:id", async (req, res) => {
+app.get("/listings/:id",wrapAsync( async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);
   res.render("listings/show.ejs", { listing });
-});
+}));
 
 //delete
-app.delete("/listings/:id", async (req, res) => {
+app.delete("/listings/:id", wrapAsync(async (req, res) => {
   let { id } = req.params;
   let deletedlisting = await Listing.findByIdAndDelete(id);
   console.log(deletedlisting);
   res.redirect("/listings");
+}));
+
+// app.all("/:path(*)",(req,res,next)=>{
+//   next(new ExpressError(404,"page Not Found"));
+// });
+// catch-all route for anything not handled above
+app.use((req, res, next) => {
+  next(new ExpressError(404, "Page Not Found"));
 });
+
 
 // middleware error
 app.use((err, req, res, next) => {
-  res.send("something went wrong");
+  let{statusCode,message}=err;
+  // res.send("something went wrong");
+  res.status(statusCode=500).send(message="something went wrong");
 });
 
 // prot

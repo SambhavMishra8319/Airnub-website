@@ -9,7 +9,7 @@ const ejsmate = require("ejs-mate");
 const { prototype } = require("events");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
-
+const { listingSchema } = require("./schema.js");
 main()
   .then(() => {
     console.log("connected to database");
@@ -46,6 +46,17 @@ app.get("/", (req, res) => {
 //   res.send("successfull listing ");
 // });
 
+const validateListing = (req, res, next) => {
+  let { error } = listingSchema.validate(req.body);
+  // console.log(result);
+  if (error) {
+    let errMsg=error.details.map((el)=>el.message).join(",");
+    throw new ExpressError(400, errMsg);
+  } else {
+    next();
+  }
+};
+
 app.get("/listings", async (req, res) => {
   const alllistings = await Listing.find({});
   res.render("listings/index.ejs", { alllistings });
@@ -59,10 +70,12 @@ app.get("/listings/new", (req, res) => {
 //create route
 app.post(
   "/listings",
+  validateListing,
   wrapAsync(async (req, res, next) => {
-    if (!req.body.listing) {
-      throw new ExpressError(400, "send valid data for listing ");
-    }
+    // if (!req.body.listing) {
+    //   throw new ExpressError(400, "send valid data for listing ");
+    // }
+
     const newlisting = new Listing(req.body.listing);
     await newlisting.save();
     res.redirect("/listings");
@@ -82,6 +95,7 @@ app.get(
 // update route
 app.put(
   "/listings/:id",
+  validateListing,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
@@ -130,7 +144,6 @@ app.use((err, req, res, next) => {
   const message = err.message || "Something went wrong!";
   res.status(statusCode).render("error.ejs", { err });
 });
-
 
 // prot
 app.listen(8080, () => {

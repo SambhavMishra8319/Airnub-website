@@ -10,7 +10,6 @@ const { prototype } = require("events");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 
-
 main()
   .then(() => {
     console.log("connected to database");
@@ -35,7 +34,7 @@ app.get("/", (req, res) => {
 });
 
 // app.get("/testlisting",async(req,res)=>{
-//   let samplelisting=new Listing({
+//   let samplelisting=new  Listing({
 //     title:"my New Villa ",
 //     description:"by the beach of Goa",
 //     price:1200,
@@ -61,43 +60,55 @@ app.get("/listings/new", (req, res) => {
 app.post(
   "/listings",
   wrapAsync(async (req, res, next) => {
-    if(!req.body.listing){
-      throw new ExpressError(400,"send valid data for listing ")
+    if (!req.body.listing) {
+      throw new ExpressError(400, "send valid data for listing ");
     }
-    const newlisting = new Listing(req.body.Listing);
+    const newlisting = new Listing(req.body.listing);
     await newlisting.save();
     res.redirect("/listings");
   })
 );
 
 //edit route
-app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
-  let { id } = req.params;
-  const listing = await Listing.findById(id);
-  res.render("listings/edit.ejs", { listing });
-}));
+app.get(
+  "/listings/:id/edit",
+  wrapAsync(async (req, res) => {
+    let { id } = req.params;
+    const listing = await Listing.findById(id);
+    res.render("listings/edit.ejs", { listing });
+  })
+);
 
 // update route
-app.put("/listings/:id", wrapAsync(async (req, res) => {
-  let { id } = req.params;
-  await Listing.findByIdAndUpdate(id, { ...req.body.Listing });
-  res.redirect(`/listings/${id}`);
-}));
+app.put(
+  "/listings/:id",
+  wrapAsync(async (req, res) => {
+    let { id } = req.params;
+    await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+    res.redirect(`/listings/${id}`);
+  })
+);
 
 // show route
-app.get("/listings/:id",wrapAsync( async (req, res) => {
-  let { id } = req.params;
-  const listing = await Listing.findById(id);
-  res.render("listings/show.ejs", { listing });
-}));
+app.get(
+  "/listings/:id",
+  wrapAsync(async (req, res) => {
+    let { id } = req.params;
+    const listing = await Listing.findById(id);
+    res.render("listings/show.ejs", { listing });
+  })
+);
 
 //delete
-app.delete("/listings/:id", wrapAsync(async (req, res) => {
-  let { id } = req.params;
-  let deletedlisting = await Listing.findByIdAndDelete(id);
-  console.log(deletedlisting);
-  res.redirect("/listings");
-}));
+app.delete(
+  "/listings/:id",
+  wrapAsync(async (req, res) => {
+    let { id } = req.params;
+    let deletedlisting = await Listing.findByIdAndDelete(id);
+    console.log(deletedlisting);
+    res.redirect("/listings");
+  })
+);
 
 // app.all("/:path(*)",(req,res,next)=>{
 //   next(new ExpressError(404,"page Not Found"));
@@ -107,13 +118,19 @@ app.use((req, res, next) => {
   next(new ExpressError(404, "Page Not Found"));
 });
 
-
 // middleware error
+// app.use((err, req, res, next) => {
+//   let { statusCode, message } = err;
+//   // res.send("something went wrong");
+//   res.status((statusCode = 500)).send((message = "something went wrong"));
+//   res.status(statusCode).render("error.ejs",{err});
+// });
 app.use((err, req, res, next) => {
-  let{statusCode,message}=err;
-  // res.send("something went wrong");
-  res.status(statusCode=500).send(message="something went wrong");
+  const statusCode = err.statusCode || 500; // default 500
+  const message = err.message || "Something went wrong!";
+  res.status(statusCode).render("error.ejs", { err });
 });
+
 
 // prot
 app.listen(8080, () => {

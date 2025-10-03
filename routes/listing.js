@@ -1,0 +1,92 @@
+const express = require("express");
+const router = express.Router();
+const Listing = require("../models/listing.js");
+
+const wrapAsync = require("../utils/wrapAsync.js");
+const ExpressError = require("../utils/ExpressError.js");
+const { listingSchema } = require("../schema.js");
+const validateListing = (req, res, next) => {
+  const { error } = listingSchema.validate(req.body);
+  if (error) {
+    const errMsg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(400, errMsg);
+  } else {
+    next();
+  }
+};  
+// List all listings
+router.get("/", async (req, res) => {
+  const alllistings = await Listing.find({});
+  res.render("listings/index.ejs", { alllistings });
+});
+
+// Show form to create new listing
+router.get("/new", (req, res) => {
+  res.render("listings/new");
+});
+
+// Create new listing
+router.post(
+  "/",
+  validateListing,
+  wrapAsync(async (req, res) => {
+    const newlisting = new Listing(req.body.listing);
+    await newlisting.save();
+    res.redirect("/listings");
+  })
+);
+
+// Show form to edit existing listing
+router.get(
+  "/:id/edit",
+  wrapAsync(async (req, res) => {
+    const { id } = req.params;
+    const listing = await Listing.findById(id);
+    res.render("listings/edit.ejs", { listing });
+  })
+);
+
+// Update existing listing
+router.put(
+  "/:id",
+  validateListing,
+  wrapAsync(async (req, res) => {
+    const { id } = req.params;
+    await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+    res.redirect(`/listings/${id}`);
+  })
+);
+
+// Show details of a single listing
+router.get(
+  "/:id",
+  wrapAsync(async (req, res) => {
+    const { id } = req.params;
+    const listing = await Listing.findById(id).populate("reviews");
+    res.render("listings/show.ejs", { listing });
+  })
+);
+
+// Delete a listing
+router.delete(
+  "/:id",
+  wrapAsync(async (req, res) => {
+    const { id } = req.params;
+    const deletedlisting = await Listing.findByIdAndDelete(id);
+    console.log(deletedlisting);
+    res.redirect("/listings");
+  })
+);
+
+
+
+
+// Home route - display all listings
+router.get("/", async (req, res) => {
+  const alllistings = await Listing.find({});
+  res.render("listings/index.ejs", { alllistings });
+});
+
+
+
+module.exports = router;

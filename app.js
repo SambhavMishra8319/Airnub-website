@@ -54,14 +54,15 @@ app.get("/", async (req, res) => {
 // Error Handling
 // ===========================
 
-// Handle 404 - page not found
+// Handle 404
 app.use((req, res, next) => {
   next(new ExpressError(404, "Page Not Found"));
 });
 
-// Global error handler
+// Global Error Handler
 app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
+  const { statusCode = 500 } = err;
+  if (!err.message) err.message = "Oh no! Something went wrong.";
   res.status(statusCode).render("error.ejs", { err });
 });
 

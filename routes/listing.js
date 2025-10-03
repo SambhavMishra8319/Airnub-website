@@ -5,6 +5,8 @@ const Listing = require("../models/listing.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
 const { listingSchema } = require("../schema.js");
+
+// Middleware for validation
 const validateListing = (req, res, next) => {
   const { error } = listingSchema.validate(req.body);
   if (error) {
@@ -13,12 +15,16 @@ const validateListing = (req, res, next) => {
   } else {
     next();
   }
-};  
+};
+
 // List all listings
-router.get("/", async (req, res) => {
-  const alllistings = await Listing.find({});
-  res.render("listings/index.ejs", { alllistings });
-});
+router.get(
+  "/",
+  wrapAsync(async (req, res) => {
+    const alllistings = await Listing.find({});
+    res.render("listings/index.ejs", { alllistings });
+  })
+);
 
 // Show form to create new listing
 router.get("/new", (req, res) => {
@@ -42,6 +48,7 @@ router.get(
   wrapAsync(async (req, res) => {
     const { id } = req.params;
     const listing = await Listing.findById(id);
+    if (!listing) throw new ExpressError(404, "Listing not found");
     res.render("listings/edit.ejs", { listing });
   })
 );
@@ -52,7 +59,8 @@ router.put(
   validateListing,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
-    await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+    const listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+    if (!listing) throw new ExpressError(404, "Listing not found");
     res.redirect(`/listings/${id}`);
   })
 );
@@ -63,6 +71,7 @@ router.get(
   wrapAsync(async (req, res) => {
     const { id } = req.params;
     const listing = await Listing.findById(id).populate("reviews");
+    if (!listing) throw new ExpressError(404, "Listing not found");
     res.render("listings/show.ejs", { listing });
   })
 );
@@ -73,20 +82,9 @@ router.delete(
   wrapAsync(async (req, res) => {
     const { id } = req.params;
     const deletedlisting = await Listing.findByIdAndDelete(id);
-    console.log(deletedlisting);
+    if (!deletedlisting) throw new ExpressError(404, "Listing not found");
     res.redirect("/listings");
   })
 );
-
-
-
-
-// Home route - display all listings
-router.get("/", async (req, res) => {
-  const alllistings = await Listing.find({});
-  res.render("listings/index.ejs", { alllistings });
-});
-
-
 
 module.exports = router;

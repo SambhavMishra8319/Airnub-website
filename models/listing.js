@@ -2,8 +2,8 @@
 
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const review = require("./review.js");
-const { ref } = require("joi");
+const Review = require("./review.js");
+// const { ref } = require("joi");
 //creating schema
 const listingSchema = new Schema({
   title: {

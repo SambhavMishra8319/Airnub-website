@@ -22,10 +22,10 @@ const listingSchema = new Schema({
     url: {
       type: String,
       default:
-        "https://pixabay.com/photos/landscape-rainbow-tropical-atoll-7373484/",
+        "https://media.istockphoto.com/id/517188688/photo/mountain-landscape.jpg?s=612x612&w=0&k=20&c=A63koPKaCyIwQWOTFBRWXj_PwCrR4cEoOw2S9Q7yVl8=",
       set: (v) =>
         v === ""
-          ? "https://pixabay.com/photos/landscape-rainbow-tropical-atoll-7373484/"
+          ? "https://media.istockphoto.com/id/517188688/photo/mountain-landscape.jpg?s=612x612&w=0&k=20&c=A63koPKaCyIwQWOTFBRWXj_PwCrR4cEoOw2S9Q7yVl8=/"
           : v,
     },
   },

@@ -1,13 +1,15 @@
 <% layout("/layouts/boilerplate") %>
 
 <div class="container mt-4">
-  <h3>Edit Listing</h3>
+  <h3 class="mb-4">Edit Listing</h3>
+
   <form
     action="/listings/<%= listing._id %>?_method=PUT"
     method="POST"
     class="needs-validation"
     novalidate
   >
+    <!-- Title -->
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
       <input
@@ -20,19 +22,19 @@
       />
     </div>
 
+    <!-- Description -->
     <div class="mb-3">
       <label for="description" class="form-label">Description</label>
       <textarea
         name="listing[description]"
         id="description"
         class="form-control"
-        rows="3"
+        rows="4"
         required
-      >
-<%= listing.description %></textarea
-      >
+      ><%= listing.description %></textarea>
     </div>
 
+    <!-- Location -->
     <div class="mb-3">
       <label for="location" class="form-label">Location</label>
       <input
@@ -45,44 +47,46 @@
       />
     </div>
 
-    <div class="mb-3">
-      <label for="country" class="form-label">Country</label>
-      <input
-        type="text"
-        name="listing[country]"
-        id="country"
-        class="form-control"
-        value="<%= listing.country %>"
-        required
-      />
+    <!-- Country & Price side by side -->
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="country" class="form-label">Country</label>
+        <input
+          type="text"
+          name="listing[country]"
+          id="country"
+          class="form-control"
+          value="<%= listing.country %>"
+          required
+        />
+      </div>
+      <div class="col-md-6">
+        <label for="price" class="form-label">Price (₹)</label>
+        <input
+          type="number"
+          name="listing[price]"
+          id="price"
+          class="form-control"
+          value="<%= listing.price %>"
+          required
+          min="0"
+        />
+      </div>
     </div>
 
-    <div class="mb-3">
-      <label for="price" class="form-label">Price</label>
-      <input
-        type="number"
-        name="listing[price]"
-        id="price"
-        class="form-control"
-        value="<%= listing.price %>"
-        required
-        min="0"
-      />
-    </div>
-
-    <div class="mb-3">
+    <!-- Image URL -->
+    <div class="mb-4">
       <label for="image" class="form-label">Image URL</label>
       <input
         type="text"
-        name="listing[image]"
+        name="listing[image].url"
         id="image"
         class="form-control"
-        value="<%= listing.image %>"
+        value="<%= listing.image.url || listing.image %>"
       />
     </div>
 
-    <button type="submit" class="btn btn-primary edit-btn">
-      Update Listing
-    </button>
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary edit-btn">Update Listing</button>
   </form>
 </div>

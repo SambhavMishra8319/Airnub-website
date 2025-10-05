@@ -1,57 +1,36 @@
 const express = require("express");
 const router = express.Router();
-const Listing = require("../models/listing.js");
-const wrapAsync = require("../utils/wrapAsync.js");
-const ExpressError = require("../utils/ExpressError.js");
-const { listingSchema } = require("../schema.js");
+const listingController = require("../controllers/listings");
 const { isLoggedIn, isOwner, validateListing } = require("../middleware");
-const listingcontroller=require("../controllers/listings");
-// List all listings
-router.get(
-  "/",
-  wrapAsync(listingcontroller.index)
-);
+const wrapAsync = require("../utils/wrapAsync.js");
+const multer = require("multer");
+const { storage } = require("../cloudConfig");
+const upload = multer({ storage });
 
-// Show form to create new listing
-router.get("/new", isLoggedIn, listingcontroller.new);
+// ====== LISTINGS ROUTES ======
 
-// Create new listing
-router.post(
-  "/",
-  isLoggedIn,
-  validateListing,
-  wrapAsync(listingcontroller.create)
-);
+// Root /listings route
+router
+  .route("/")
+  .get(wrapAsync(listingController.index)) // List all listings
+  .post(isLoggedIn, validateListing, upload.single("listing[image]"),wrapAsync(listingController.create)); // Create new listing
+  
+// Form to create a new listing
+router.get("/new", isLoggedIn, listingController.new);
 
-// Show form to edit existing listing
-router.get(
-  "/:id/edit",
-  isLoggedIn,
-  isOwner,
-  wrapAsync(listingcontroller.edit)
-);
+// Routes for specific listing ID
+router
+  .route("/:id")
+  .get(wrapAsync(listingController.show)) // Show listing details
+  .put(
+    isLoggedIn,
+    isOwner,
+    validateListing,
+    wrapAsync(listingController.update)
+  ) // Update listing
+  .delete(isLoggedIn, isOwner, wrapAsync(listingController.delete)); // Delete listing
 
-// Update existing listing
-router.put(
-  "/:id",
-  isLoggedIn,
-  isOwner,
-  validateListing,
-  wrapAsync(listingcontroller.update)
-);
-
-// Show details of a single listing
-router.get(
-  "/:id",
-  wrapAsync(listingcontroller.show)
-);
-
-// Delete a listing
-router.delete(
-  "/:id",
-  isLoggedIn,
-  isOwner,
-  wrapAsync(listingcontroller.delete)
-);
+// Form to edit listing
+router.get("/:id/edit", isLoggedIn, isOwner, wrapAsync(listingController.edit));
 
 module.exports = router;

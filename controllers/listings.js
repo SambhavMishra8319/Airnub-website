@@ -77,9 +77,15 @@ module.exports.new = (req, res) => {
 };
 
 module.exports.create = async (req, res) => {
+  let url=req.file.path;
+  let filename=req.file.filename;
+  
   const newlisting = new Listing(req.body.listing);
   newlisting.owner = req.user._id;
+  newlisting.image={url,filename};
   await newlisting.save();
+  console.log(req.body);
+
   req.flash("success", "Successfully made a new listing!");
   res.redirect("/listings");
 };

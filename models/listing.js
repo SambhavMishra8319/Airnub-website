@@ -3,6 +3,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Review = require("./review.js");
+const { ref } = require("joi");
 // const { ref } = require("joi");
 //creating schema
 const listingSchema = new Schema({
@@ -21,10 +22,10 @@ const listingSchema = new Schema({
     url: {
       type: String,
       default:
-        "D:/Coding/Web Develpoment/airbnb/Airnub-website/pexels-pixabay-158063.jpg",
+        "https://pixabay.com/photos/landscape-rainbow-tropical-atoll-7373484/",
       set: (v) =>
         v === ""
-          ? "D:/Coding/Web Develpoment/airbnb/Airnub-website/pexels-pixabay-158063.jpg"
+          ? "https://pixabay.com/photos/landscape-rainbow-tropical-atoll-7373484/"
           : v,
     },
   },
@@ -44,6 +45,10 @@ const listingSchema = new Schema({
       ref: "Review",
     },
   ],
+  owner:{
+    type:Schema.Types.ObjectId,
+    ref:"User",
+  }
 });
 
 listingSchema.post("findOneAndDelete", async (listing) => {

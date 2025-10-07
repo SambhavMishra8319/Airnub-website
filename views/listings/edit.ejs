@@ -8,6 +8,7 @@
     method="POST"
     class="needs-validation"
     novalidate
+    enctype="multipart/form-data"
   >
     <!-- Title -->
     <div class="mb-3">
@@ -31,7 +32,9 @@
         class="form-control"
         rows="4"
         required
-      ><%= listing.description %></textarea>
+      >
+<%= listing.description %></textarea
+      >
     </div>
 
     <!-- Location -->
@@ -73,13 +76,21 @@
         />
       </div>
     </div>
+    <div class="mb-3 ">
+  <img
+    src="<%= listing.image.url %>"
+    alt="Listing Image"
+    class="img-fluid rounded shadow-sm"
+    style="max-height: 250px; object-fit: cover;"
+  />
+</div>
 
     <!-- Image URL -->
     <div class="mb-4">
-      <label for="image" class="form-label">Image URL</label>
+      <label for="image" class="form-label">Upload New Image</label>
       <input
-        type="text"
-        name="listing[image].url"
+        type="file"
+        name="listing[image]"
         id="image"
         class="form-control"
         value="<%= listing.image.url || listing.image %>"
@@ -87,6 +98,8 @@
     </div>
 
     <!-- Submit Button -->
-    <button type="submit" class="btn btn-primary edit-btn">Update Listing</button>
+    <button type="submit" class="btn btn-primary edit-btn">
+      Update Listing
+    </button>
   </form>
 </div>

@@ -1,0 +1,67 @@
+📄 Summary of the Login Page (EJS)
+
+1. Layout:
+   - Extends from `/layouts/boilerplate`
+   - Uses Bootstrap for styling and responsiveness.
+
+2. Structure:
+   - Centered login form inside a Bootstrap card.
+   - Title: “Login to Wanderlust”.
+
+3. Form Details:
+   - Method: POST
+   - Action: /login
+   - Includes Bootstrap validation classes (`needs-validation`, `novalidate`).
+
+4. Input Fields:
+   - Username: required text input.
+   - Password: required password input.
+
+5. Buttons & Links:
+   - “Login” button (green, full width).
+   - “Sign up” link below form for new users.
+
+6. Validation:
+   - Includes `invalid-feedback` messages for empty fields.
+   - Client-side validation setup (HTML5 + Bootstrap ready).
+
+7. Design Notes:
+   - Responsive on all devices.
+   - Clean, centered, minimal design with shadows and padding.
+
+
+
+
+
+📄 Summary of the Signup Page (EJS)
+
+1. Layout:
+   - Extends the `/layouts/boilerplate` layout.
+   - Uses Bootstrap for styling, spacing, and responsive layout.
+
+2. Structure:
+   - Centered signup form using Bootstrap grid system.
+   - Title: “SignUp on Wanderlust”.
+
+3. Form Details:
+   - Method: POST
+   - Action: /signup
+   - Includes Bootstrap’s validation setup (`needs-validation`, `novalidate`).
+
+4. Input Fields:
+   - Username: required text input.
+   - Email: required email input with HTML5 validation.
+   - Password: required password input.
+
+5. Buttons:
+   - “SignUp” button styled with Bootstrap’s success theme (green).
+
+6. Validation:
+   - Client-side validation ready with `required` attributes.
+   - `valid-feedback` for correct input.
+   - `invalid-feedback` can be added for better user experience.
+
+7. Design Notes:
+   - Minimal, centered form for clean UI.
+   - Fully responsive layout — works well on mobile and desktop screens.
+   - Matches the design style of the login page for consistency.

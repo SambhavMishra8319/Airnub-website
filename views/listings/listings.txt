@@ -1,0 +1,194 @@
+<!-- =========================================
+  📄 FILE: edit.ejs
+  📘 PURPOSE:
+    - Displays a pre-filled form to edit an existing listing.
+    - Sends updated data via PUT request using method override.
+
+  🧩 LAYOUT:
+    - Extends: /layouts/boilerplate.ejs
+
+  🧱 FORM DETAILS:
+    ✅ action → /listings/:id?_method=PUT
+    ✅ method → POST (with method override)
+    ✅ enctype → multipart/form-data (for image upload)
+    ✅ validation → Bootstrap’s "needs-validation"
+
+  📝 FORM FIELDS:
+    1️⃣ Title → listing[title]
+    2️⃣ Description → listing[description]
+    3️⃣ Location → listing[location]
+    4️⃣ Country → listing[country]
+    5️⃣ Price (₹) → listing[price]
+    6️⃣ Current Image Preview → <img src="<%= listing.image.url %>">
+    7️⃣ Upload New Image → listing[image]
+
+  🎨 STYLING:
+    - Bootstrap classes: form-control, row, col-md-6, mb-3
+    - Image preview styled with: rounded, shadow-sm, max-height: 250px
+
+  🚀 FUNCTIONALITY:
+    - Pre-fills inputs with existing listing data using EJS (<%= listing.field %>)
+    - Allows updating text fields, location, and uploading a new image.
+    - Submits to backend for listing update (PUT route).
+
+  🧠 SUMMARY:
+    → Provides an intuitive, Bootstrap-styled edit form.
+    → Displays current image and allows replacement.
+    → Uses clean layout and validation for user-friendly experience.
+========================================= -->
+
+
+
+<!-- =========================================
+  📄 FILE: index.ejs
+  📘 PURPOSE:
+    - Displays all Airbnb-style listings on the home page.
+    - Includes filters, a tax toggle, and listing cards with images and details.
+
+  🧩 LAYOUT:
+    - Extends: /layouts/boilerplate.ejs
+
+  🎨 STYLING:
+    - Inline CSS for filters, icons, and tax toggle.
+    - Uses Bootstrap grid classes for responsive listing cards.
+    - Font Awesome icons for category filters (Trending, Rooms, Castles, etc.).
+
+  🧱 MAIN SECTIONS:
+    1️⃣ Filters Bar (Top):
+        - Displays category icons (Trending, Rooms, Mountains, etc.)
+        - Includes “Display total after taxes” switch.
+
+    2️⃣ Listings Grid:
+        - Loops through `alllistings`.
+        - Displays each listing inside a clickable Bootstrap card.
+        - Fallback image used if listing.image is missing.
+        - Price formatted with commas (₹<%= listing.price.toLocaleString("en-IN") %>)
+        - Optional GST info toggled via checkbox.
+
+    3️⃣ Tax Toggle Script:
+        - Adds event listener to checkbox.
+        - When checked, shows "+18% GST" next to prices.
+        - When unchecked, hides GST info.
+
+  ⚙️ FUNCTIONALITY:
+    - EJS loop (<% for (let listing of alllistings) %>) dynamically renders listings.
+    - Each card links to `/listings/:id` for details.
+    - Interactive tax toggle enhances user experience.
+
+  🧠 SUMMARY:
+    → Provides a visually engaging listings page with dynamic filtering UI.
+    → Combines Bootstrap + Font Awesome for design consistency.
+    → Adds simple front-end interactivity using JavaScript.
+========================================= -->
+
+
+
+
+<!-- =========================================
+  📄 FILE: new.ejs
+  📘 PURPOSE:
+    - Provides a form for creating a new listing in the Wanderlust app.
+
+  🧩 LAYOUT:
+    - Extends: /layouts/boilerplate.ejs
+
+  🎨 DESIGN:
+    - Uses Bootstrap 5 classes for layout, spacing, and validation.
+    - Form centered using `.col-8.offset-2`.
+    - Responsive row for price and country input fields.
+
+  🧱 FORM FIELDS:
+    1️⃣ Title  
+        - Text input for listing title.  
+        - Includes validation feedback.  
+
+    2️⃣ Description  
+        - Textarea for listing description.  
+
+    3️⃣ Image Upload  
+        - File input (`type="file"`) to upload image.  
+        - `enctype="multipart/form-data"` ensures file upload works properly.  
+        - (Commented-out alternative for image URL input provided.)
+
+    4️⃣ Price  
+        - Numeric input for price.  
+        - Custom invalid feedback for missing/invalid values.
+
+    5️⃣ Country  
+        - Text input for country name.
+
+    6️⃣ Location  
+        - Text input for specific location (city/region).  
+        - Validation for required field.
+
+  🧠 FUNCTIONALITY:
+    - Form uses Bootstrap’s client-side validation (`needs-validation`).
+    - Submits via `POST /listings`.
+    - File upload supported via `multer` on the backend.
+    - Displays success/error messages using built-in Bootstrap feedback.
+
+  🧾 BUTTON:
+    - “ADD” button styled with `btn btn-dark add-btn mt-3`.
+
+  ✅ SUMMARY:
+    → This page allows users to add a new Airbnb-style listing with details like title, description, image, price, country, and location.
+    → Fully compatible with backend routes and validation middleware.
+========================================= -->
+
+
+
+<!-- =========================================
+  📄 FILE: show.ejs
+  📘 PURPOSE:
+    - Displays detailed information for a specific listing.
+    - Allows users to view, review, and (if authorized) edit or delete listings.
+
+  🧩 LAYOUT:
+    - Extends: /layouts/boilerplate.ejs
+
+  🎨 DESIGN:
+    - Bootstrap card layout centered in container.
+    - Responsive column system (`col-12 col-md-8`) for balanced width.
+    - Uses FontAwesome for icons (via layout).
+
+  🧱 SECTIONS:
+    1️⃣ Listing Details
+        - Shows title, image, owner name, description, price, country, and location.
+        - Image pulled from `listing.image.url || listing.image`.
+        - Proper currency formatting using `toLocaleString("en-IN")`.
+
+    2️⃣ Owner Buttons (Conditional)
+        - Visible only if `currUser` matches `listing.owner._id`.
+        - Provides:
+          ✅ “Edit” → `/listings/:id/edit`
+          ✅ “Delete” → Sends DELETE request to `/listings/:id`
+
+    3️⃣ Review Form (Conditional)
+        - Only logged-in users (`currUser`) can see it.
+        - Fields:
+          - ⭐ Star rating (1–5) with accessibility labels.
+          - 📝 Comment textarea (required).
+        - Styled with Bootstrap validation classes.
+        - Action: `POST /listings/:id/reviews`
+        - Integrated with “starability” CSS for visual star ratings.
+
+    4️⃣ Reviews List (Conditional)
+        - Only displayed if `listing.reviews.length > 0`.
+        - Each review card shows:
+          - Reviewer username (or “Anonymous” if deleted).
+          - Comment text.
+          - Rating displayed via `data-rating` in `.starability-result`.
+          - If current user authored the review → “Delete” button (sends DELETE request).
+
+  🧠 FUNCTIONALITY:
+    - Uses EJS conditional logic for user-based permissions.
+    - Fallbacks ensure no app crash if owner or author is missing.
+    - Integrates dynamic review deletion with proper `_method=DELETE`.
+
+  ✅ SUMMARY:
+    → This page is the **core listing view** where users can:
+       - View full listing details.
+       - Add or delete their reviews.
+       - Edit or delete their own listings.
+    → Ensures user permissions and validation are applied.
+========================================= -->

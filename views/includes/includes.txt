@@ -1,0 +1,104 @@
+/*
+===========================================================
+📄 FILE SUMMARY: views/partials/flash.ejs
+===========================================================
+
+🧭 PURPOSE:
+This EJS partial displays **Bootstrap alert messages** for both 
+success and error notifications using flash messages from the server.
+
+⚙️ FUNCTIONALITY & WORKFLOW:
+1. Checks if a `success` flash message exists → Displays it in a green alert box.
+2. Checks if an `error` flash message exists → Displays it in a red alert box.
+3. Each alert includes a Bootstrap “close” button so users can dismiss it.
+
+🧩 USED IN:
+Usually included in layout files like `boilerplate.ejs` or individual pages:
+```ejs
+<%- include("partials/flash") %>
+
+
+
+
+
+
+/*
+===========================================================
+📄 FILE SUMMARY: views/partials/navbar.ejs
+===========================================================
+
+🧭 PURPOSE:
+This EJS partial defines the **main navigation bar** for the Wanderlust web app.  
+It includes branding, navigation links, search functionality, and user authentication options.
+
+⚙️ FUNCTIONALITY & WORKFLOW:
+1. **Brand Logo:**  
+   Displays the Wanderlust compass icon linking back to `/listings`.
+
+2. **Navigation Links:**  
+   - “Explore” → Redirects to listings page.  
+   - “Airbnb your home” → Opens the form to create a new listing.
+
+3. **Search Bar:**  
+   - Allows users to input a search term and submit using a styled button.  
+   - Includes custom CSS for rounded search input and red “Search” button.
+
+4. **Authentication Buttons:**  
+   - If user **not logged in (`!currUser`)** → Show “Sign Up” and “Log In”.  
+   - If user **logged in (`currUser`)** → Show “Log Out”.
+
+5. **Bootstrap Responsive Navbar:**  
+   - Collapsible menu for smaller screens.
+   - Sticky top positioning for consistent visibility during scrolling.
+
+🎨 **Styling Highlights:**
+- Custom `.search-btn` and `.search-input` styles for modern rounded appearance.
+- Smooth color hover transitions for better UX.
+- Flexbox alignment ensures consistent layout between icons and text.
+
+🚀 RESULT:
+Provides a clean, responsive, and interactive navbar with integrated
+navigation, authentication controls, and search functionality — essential
+for the Wanderlust travel listing experience.
+
+===========================================================
+*/
+
+
+
+
+
+/*
+===========================================================
+📄 FILE SUMMARY: views/partials/footer.ejs
+===========================================================
+
+🧭 PURPOSE:
+This EJS partial defines the **footer section** for the Wanderlust web application.  
+It provides social media links, company branding, and essential policy links at the bottom of every page.
+
+⚙️ FUNCTIONALITY & WORKFLOW:
+1. **Social Media Icons:**
+   - Displays Font Awesome icons for Instagram, Facebook, and LinkedIn.  
+   - Encourages users to connect with Wanderlust on social platforms.
+
+2. **Brand Information:**
+   - Shows the copyright notice:  
+     `© Wanderlust Private Limited`  
+   - Placed inside a `div` with class `.f-info-brand` for consistent styling.
+
+3. **Legal & Policy Links:**
+   - Provides quick links to `/privacy` and `/terms` pages.  
+   - Styled consistently with `.f-info-links`.
+
+4. **Styling Integration:**
+   - The CSS classes (`.f-info`, `.f-info-socials`, `.f-info-brand`, `.f-info-links`)
+     correspond with styles defined in `public/css/style.css`.
+   - Uses **flexbox** layout for evenly spaced, centered content.
+
+🚀 RESULT:
+Creates a clean, responsive, and visually balanced footer that enhances professionalism
+and accessibility across all pages of the Wanderlust site.
+
+===========================================================
+*/

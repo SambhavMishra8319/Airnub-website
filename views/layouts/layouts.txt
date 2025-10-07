@@ -1,0 +1,38 @@
+<!-- =========================================
+  📄 FILE: boilerplate.ejs
+  📘 PURPOSE:
+    - Acts as the main layout template for the Wanderlust app.
+    - Used by EJS-Mate to wrap all EJS pages in a common structure.
+
+  🧩 INCLUDES:
+    ✅ /includes/navbar.ejs   → Top navigation bar
+    ✅ /includes/flash.ejs    → Flash message alerts (success/error)
+    ✅ /includes/footer.ejs   → Footer section
+
+  🎨 STYLES & FONTS:
+    - /css/style.css          → Main custom styles
+    - /css/rating.css         → Star rating styles
+    - Bootstrap 5.3.8 (CDN)
+    - Font Awesome 7.0.1 (icons)
+    - Google Font: Plus Jakarta Sans
+    - Mapbox GL CSS (for maps)
+
+  ⚙️ SCRIPTS:
+    - Bootstrap JS Bundle (CDN)
+    - /js/script.js (custom client JS)
+    - Mapbox GL JS (for map rendering)
+
+  🧱 STRUCTURE:
+    <body>
+      ├── Navbar include
+      ├── <h1>Wanderlust</h1>
+      ├── Flash message include
+      ├── <%- body %> → Page-specific content
+      └── Footer include
+    </body>
+
+  🚀 SUMMARY:
+    → Provides a consistent structure and design for all pages.
+    → Ensures all pages share the same styles, header, and footer.
+    → Integrates Bootstrap, Font Awesome, Google Fonts, and Mapbox globally.
+========================================= -->

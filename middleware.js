@@ -3,22 +3,25 @@ const Review = require("./models/review.js");
 const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema, reviewSchema } = require("./schema.js");
 
+// ✅ Check if user is logged in
 module.exports.isLoggedIn = (req, res, next) => {
   if (!req.isAuthenticated()) {
-    req.session.redirectUrl = req.originalUrl; // save the original URL
+    req.session.redirectUrl = req.originalUrl; // Save original URL
     req.flash("error", "You must be logged in first!");
     return res.redirect("/login");
   }
   next();
 };
 
-// Middleware to pass redirectUrl to res.locals after login
+// ✅ Save redirect URL after login
 module.exports.saveRedirectUrl = (req, res, next) => {
   if (req.session.redirectUrl) {
     res.locals.redirectUrl = req.session.redirectUrl;
   }
   next();
 };
+
+// ✅ Check if current user is the owner of listing
 module.exports.isOwner = async (req, res, next) => {
   const { id } = req.params;
   const listing = await Listing.findById(id);
@@ -29,6 +32,7 @@ module.exports.isOwner = async (req, res, next) => {
   next();
 };
 
+// ✅ Validate review schema
 module.exports.validateReview = (req, res, next) => {
   const { error } = reviewSchema.validate(req.body);
   if (error) {
@@ -39,7 +43,7 @@ module.exports.validateReview = (req, res, next) => {
   }
 };
 
-// ✅ Add this
+// ✅ Validate listing schema
 module.exports.validateListing = (req, res, next) => {
   const { error } = listingSchema.validate(req.body);
   if (error) {
@@ -49,9 +53,11 @@ module.exports.validateListing = (req, res, next) => {
     next();
   }
 };
+
+// ✅ Check if current user is the author of a review
 module.exports.isReviewAuther = async (req, res, next) => {
   const { id, reviewId } = req.params;
-  const review = await Review.findById(reviewId); // use reviewId from params
+  const review = await Review.findById(reviewId);
   if (!review) {
     req.flash("error", "Review not found!");
     return res.redirect(`/listings/${id}`);
@@ -62,3 +68,44 @@ module.exports.isReviewAuther = async (req, res, next) => {
   }
   next();
 };
+
+
+
+
+/*
+==========================================
+🛡️ MIDDLEWARE SUMMARY – (auth.js / middleware.js)
+==========================================
+
+1️⃣ Dependencies
+-----------------
+const Listing = require("./models/listing.js");
+const Review = require("./models/review.js");
+const ExpressError = require("./utils/ExpressError.js");
+const { listingSchema, reviewSchema } = require("./schema.js");
+
+2️⃣ Purpose
+-------------
+This file defines reusable middleware functions 
+for authentication, authorization, and validation 
+in your Wanderlust app.
+
+3️⃣ Middleware Functions
+--------------------------
+
+✅ isLoggedIn
+-------------
+- Ensures user is authenticated before accessing protected routes.
+- If not logged in → flashes an error and redirects to `/login`.
+- Saves the original URL in session for redirection after login.
+
+```js
+module.exports.isLoggedIn = (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    req.session.redirectUrl = req.originalUrl;
+    req.flash("error", "You must be logged in first!");
+    return res.redirect("/login");
+  }
+  next();
+};
+*/

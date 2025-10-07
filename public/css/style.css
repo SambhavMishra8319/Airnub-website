@@ -105,3 +105,46 @@ body {
   padding-left: 0;
   padding-right: 0;
 }
+
+
+
+/******************************************************
+ * File: public/css/style.css
+ * Description:
+ * Contains all custom styling rules for the Wanderlust web application.
+ * Enhances the layout, colors, and responsiveness of the app’s UI 
+ * while integrating seamlessly with Bootstrap components.
+ *
+ * 🔹 Main Sections:
+ * 1. Global Styles:
+ *    - Sets base font to "Plus Jakarta Sans".
+ *    - Ensures full viewport height layout with flexible containers.
+ *
+ * 2. Navbar:
+ *    - Defines height and white background color.
+ *    - Highlights compass icon in red (`#fe424d`).
+ *    - Ensures navigation links have consistent dark color styling.
+ *
+ * 3. Footer:
+ *    - Uses flexbox for alignment and spacing.
+ *    - Styles social media icons, links, and brand info.
+ *    - Adds hover underline effect on footer links.
+ *
+ * 4. Listing Cards:
+ *    - Removes borders and adds spacing between cards.
+ *    - Ensures images cover full width with rounded corners.
+ *    - Adds hover overlay effect for better interactivity.
+ *
+ * 5. Buttons:
+ *    - `.add-btn` and `.edit-btn` share the same red background (`#fe424d`).
+ *    - Removes default Bootstrap borders.
+ *
+ * 6. Show Page:
+ *    - `.show-img`: Fixes image height for consistent layout.
+ *    - `.btns`: Displays buttons in a row.
+ *    - `.show-card`: Removes side padding for clean alignment.
+ *
+ * 🧠 Usage:
+ * - Linked in layout templates (EJS files) for all Wanderlust pages.
+ * - Works alongside Bootstrap classes to maintain visual consistency.
+ ******************************************************/

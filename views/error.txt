@@ -1,0 +1,25 @@
+📄 Summary of the Error Page (EJS)
+
+1. Layout:
+   - Uses the `/layouts/boilerplate` layout for consistent styling across the site.
+   - Styled with Bootstrap components.
+
+2. Structure:
+   - A single centered Bootstrap `alert` box (type: danger).
+   - Positioned using Bootstrap’s grid system (`col-6 offset-3`) to center it horizontally.
+
+3. Alert Box:
+   - Alert type: `alert-danger` (red color to indicate an error).
+   - Includes a Bootstrap SVG icon placeholder (`exclamation-triangle-fill`) for warning/error indication.
+
+4. Dynamic Data:
+   - Displays the error message dynamically from `err.message`.
+   - Optional trace (`err.trace`) commented out — can be shown for debugging if needed.
+
+5. Purpose:
+   - This page is rendered when an error occurs in the application.
+   - Provides users with a clear, concise error message in a visually distinct style.
+
+6. Design Notes:
+   - Minimal and focused — draws immediate attention to the issue.
+   - Uses Bootstrap’s alert styling for clarity and consistency with the rest of the app.

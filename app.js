@@ -107,10 +107,10 @@ app.use("/",userRouter);
 
 
 // Home route - display all listings
-// app.get("/", async (req, res) => {
-//   const alllistings = await Listing.find({});
-//   res.render("listings/index.ejs", { alllistings });
-// });
+app.get("/", async (req, res) => {
+  const alllistings = await Listing.find({});
+  res.render("listings/index.ejs", { alllistings });
+});
 
 
 

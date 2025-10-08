@@ -12,6 +12,7 @@
           class="card-img-top"
           alt="Listing Image"
         />
+
         <div class="card-body">
           <p class="card-text">
             <strong>Owned By:</strong> <i><%= listing.owner.username %></i>
@@ -125,8 +126,7 @@
           </form>
         </div>
       </div>
-      <% } %>
-      <% if(listing.reviews.length > 0){ %>
+      <% } %> <% if(listing.reviews.length > 0){ %>
 
       <!-- Reviews List -->
       <div class="row">
@@ -158,10 +158,7 @@
         </div>
         <% }) %>
       </div>
-      <% }  %>
+      <% } %>
     </div>
-    </div>
-    
+  </div>
 </div>
-
-

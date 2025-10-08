@@ -3,7 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>wanderlust</title>
+    <title>Restoria</title>
+    <!-- <link rel="icon" href="/public/assets/favicon.ico" type="image/png"> -->
+     <link rel="icon" class="f" href="/assets/favicon.ico" type="image/x-icon">
+
+
+ 
+
     <link rel="stylesheet" href="/css/style.css" />
     <link
       rel="stylesheet"
@@ -27,12 +33,16 @@
       href="https://api.mapbox.com/mapbox-gl-js/v3.15.0/mapbox-gl.css"
       rel="stylesheet"
     />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.15.0/mapbox-gl.js"></script>
   </head>
   <body>
     <%- include("../includes/navbar.ejs")%>
 
-    <h1>Wanderlust</h1>
+    <h1 class="stylish-title">Restoria</h1>
+
     <div class="container">
       <%- include("../includes/flash.ejs") %> <%-body%>
     </div>

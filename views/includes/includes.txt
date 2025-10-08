@@ -28,12 +28,12 @@ Usually included in layout files like `boilerplate.ejs` or individual pages:
 ===========================================================
 
 🧭 PURPOSE:
-This EJS partial defines the **main navigation bar** for the Wanderlust web app.  
+This EJS partial defines the **main navigation bar** for the Restoria web app.  
 It includes branding, navigation links, search functionality, and user authentication options.
 
 ⚙️ FUNCTIONALITY & WORKFLOW:
 1. **Brand Logo:**  
-   Displays the Wanderlust compass icon linking back to `/listings`.
+   Displays the Restoria compass icon linking back to `/listings`.
 
 2. **Navigation Links:**  
    - “Explore” → Redirects to listings page.  
@@ -59,7 +59,7 @@ It includes branding, navigation links, search functionality, and user authentic
 🚀 RESULT:
 Provides a clean, responsive, and interactive navbar with integrated
 navigation, authentication controls, and search functionality — essential
-for the Wanderlust travel listing experience.
+for the Restoria travel listing experience.
 
 ===========================================================
 */
@@ -74,17 +74,17 @@ for the Wanderlust travel listing experience.
 ===========================================================
 
 🧭 PURPOSE:
-This EJS partial defines the **footer section** for the Wanderlust web application.  
+This EJS partial defines the **footer section** for the Restoria web application.  
 It provides social media links, company branding, and essential policy links at the bottom of every page.
 
 ⚙️ FUNCTIONALITY & WORKFLOW:
 1. **Social Media Icons:**
    - Displays Font Awesome icons for Instagram, Facebook, and LinkedIn.  
-   - Encourages users to connect with Wanderlust on social platforms.
+   - Encourages users to connect with Restoria on social platforms.
 
 2. **Brand Information:**
    - Shows the copyright notice:  
-     `© Wanderlust Private Limited`  
+     `© Restoria Private Limited`  
    - Placed inside a `div` with class `.f-info-brand` for consistent styling.
 
 3. **Legal & Policy Links:**
@@ -98,7 +98,7 @@ It provides social media links, company branding, and essential policy links at 
 
 🚀 RESULT:
 Creates a clean, responsive, and visually balanced footer that enhances professionalism
-and accessibility across all pages of the Wanderlust site.
+and accessibility across all pages of the Restoria site.
 
 ===========================================================
 */

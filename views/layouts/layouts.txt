@@ -1,7 +1,7 @@
 <!-- =========================================
   📄 FILE: boilerplate.ejs
   📘 PURPOSE:
-    - Acts as the main layout template for the Wanderlust app.
+    - Acts as the main layout template for the Restoria app.
     - Used by EJS-Mate to wrap all EJS pages in a common structure.
 
   🧩 INCLUDES:
@@ -25,7 +25,7 @@
   🧱 STRUCTURE:
     <body>
       ├── Navbar include
-      ├── <h1>Wanderlust</h1>
+      ├── <h1>Restoria</h1>
       ├── Flash message include
       ├── <%- body %> → Page-specific content
       └── Footer include

@@ -87,7 +87,7 @@
 <!-- =========================================
   📄 FILE: new.ejs
   📘 PURPOSE:
-    - Provides a form for creating a new listing in the Wanderlust app.
+    - Provides a form for creating a new listing in the Restoria app.
 
   🧩 LAYOUT:
     - Extends: /layouts/boilerplate.ejs

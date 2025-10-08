@@ -1,12 +1,27 @@
 body {
-  font-family: "Plus Jakarta Sans", sans-serif;
+  /* font-family: "Plus Jakarta Sans", sans-serif; */
+  font-family: "Playfair Display", serif;
+   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Subtle shadow */
   flex-direction: column;
   min-height: 100vh;
 }
 
+.stylish-title {
+  font-family: "Playfair Display", serif; /* Elegant serif font */
+  font-size: 64px; /* Large, attention-grabbing */
+  font-weight: 700; /* Bold */
+  color: #2c3e50; /* Dark, classy color */
+  letter-spacing: 2px; /* Adds luxury feel */
+  text-transform: uppercase; /* Optional for premium vibe */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+ 
+  text-align: center; /* Centered on page */
+  margin: 40px 0; /* Space above & below */
+}
 .container {
   flex: 1;
 }
+
 
 /* navbar */
 
@@ -20,6 +35,9 @@ body {
   font-size: 2rem;
 }
 
+.f{
+  border-radius: 25px;
+}
 .nav-link {
   color: #222222 !important;
 }
@@ -62,24 +80,47 @@ body {
 .listing-link {
   text-decoration: none;
 }
-.listing-card{
-    border:none !important;
-    margin-bottom: 2rem;
-
+/* .listing-card {
+  border: none !important;
+  margin-bottom: 2rem;
+} */
+.listing-card {
+  border: none !important;
+  margin-bottom: 2rem;
+  border-radius: 1.5rem !important; /* rounded corners */
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* subtle default shadow */
 }
-.card-img-top{
-    border-radius: 1rem !important;
-    width:100% !important;
-    object-fit:cover !important ;
+.listing-card:hover {
+  transform: scale(1.02); /* slightly bigger on hover */
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25); /* more prominent shadow */
+  cursor: pointer; /* pointer to indicate interactivity */
+}
+.card-img-top {
+  border-radius: 1rem !important;
+  width: 100% !important;
+  object-fit: cover !important ;
 }
 
-.card-img-overlay {
+/* .card-img-overlay {
   opacity: 0;
 }
 .card-img-overlay:hover {
   opacity: 0.2;
   background-color: white;
+} */
+
+.card-img-overlay {
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
+
+.card-img-overlay:hover {
+  opacity: 0.2;
+  background-color: rgba(255, 255, 255, 0.3); /* soft glow effect */
+}
+
 /* new page */
 
 .add-btn {
@@ -105,7 +146,6 @@ body {
   padding-left: 0;
   padding-right: 0;
 }
-
 
 
 /******************************************************

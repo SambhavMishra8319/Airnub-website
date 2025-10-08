@@ -19,7 +19,7 @@
     /* font-weight: 700; */
   }
   .filter p {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
   .tax-info {
     display: none;
@@ -112,7 +112,10 @@
           <b><%= listing.title %></b>
           <br />
           ₹<%= listing.price.toLocaleString("en-IN") %>/night
-          <i class="tax-info">&nbsp;+18% GST</i>
+          <i class="tax-info">
+            &nbsp;+18% GST (₹<%= (listing.price * 0.18).toLocaleString("en-IN")
+            %>) = ₹<%= (listing.price * 1.18).toLocaleString("en-IN") %>
+          </i>
         </p>
       </div>
     </div>

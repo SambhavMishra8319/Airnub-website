@@ -6,7 +6,7 @@
 
 2. Structure:
    - Centered login form inside a Bootstrap card.
-   - Title: “Login to Wanderlust”.
+   - Title: “Login to Restoria”.
 
 3. Form Details:
    - Method: POST
@@ -41,7 +41,7 @@
 
 2. Structure:
    - Centered signup form using Bootstrap grid system.
-   - Title: “SignUp on Wanderlust”.
+   - Title: “SignUp on Restoria”.
 
 3. Form Details:
    - Method: POST

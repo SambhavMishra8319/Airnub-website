@@ -88,7 +88,7 @@ const { listingSchema, reviewSchema } = require("./schema.js");
 -------------
 This file defines reusable middleware functions 
 for authentication, authorization, and validation 
-in your Wanderlust app.
+in your Restoria app.
 
 3️⃣ Middleware Functions
 --------------------------
